@@ -5,6 +5,19 @@ import { TicketFilters } from './TicketFilters';
 type SortField = 'jira_key' | 'summary' | 'status' | 'priority' | 'created_at';
 type SortDir = 'asc' | 'desc';
 
+function SortIcon({
+  field,
+  sortField,
+  sortDir,
+}: {
+  field: SortField;
+  sortField: SortField;
+  sortDir: SortDir;
+}) {
+  if (sortField !== field) return null;
+  return <span className="ml-1">{sortDir === 'asc' ? '↑' : '↓'}</span>;
+}
+
 export function TicketsView() {
   const { tickets, filters, fetchTickets } = useAppStore((s) => ({
     tickets: s.tickets,
@@ -63,11 +76,6 @@ export function TicketsView() {
     return result;
   }, [tickets, filters, sortField, sortDir]);
 
-  const SortIcon = ({ field }: { field: SortField }) => {
-    if (sortField !== field) return null;
-    return <span className="ml-1">{sortDir === 'asc' ? '↑' : '↓'}</span>;
-  };
-
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">Tickets</h2>
@@ -83,32 +91,32 @@ export function TicketsView() {
                   className="px-4 py-3 text-left cursor-pointer hover:bg-gray-700"
                   onClick={() => handleSort('jira_key')}
                 >
-                  Key <SortIcon field="jira_key" />
+                  Key <SortIcon field="jira_key" sortField={sortField} sortDir={sortDir} />
                 </th>
                 <th
                   className="px-4 py-3 text-left cursor-pointer hover:bg-gray-700"
                   onClick={() => handleSort('summary')}
                 >
-                  Summary <SortIcon field="summary" />
+                  Summary <SortIcon field="summary" sortField={sortField} sortDir={sortDir} />
                 </th>
                 <th
                   className="px-4 py-3 text-left cursor-pointer hover:bg-gray-700"
                   onClick={() => handleSort('status')}
                 >
-                  Status <SortIcon field="status" />
+                  Status <SortIcon field="status" sortField={sortField} sortDir={sortDir} />
                 </th>
                 <th
                   className="px-4 py-3 text-left cursor-pointer hover:bg-gray-700"
                   onClick={() => handleSort('priority')}
                 >
-                  Priority <SortIcon field="priority" />
+                  Priority <SortIcon field="priority" sortField={sortField} sortDir={sortDir} />
                 </th>
                 <th className="px-4 py-3 text-left">Category</th>
                 <th
                   className="px-4 py-3 text-left cursor-pointer hover:bg-gray-700"
                   onClick={() => handleSort('created_at')}
                 >
-                  Created <SortIcon field="created_at" />
+                  Created <SortIcon field="created_at" sortField={sortField} sortDir={sortDir} />
                 </th>
               </tr>
             </thead>
