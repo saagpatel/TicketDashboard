@@ -86,8 +86,8 @@ jobs:
       - run: k6 run tests/perf/api.k6.js --summary-export=.perf-results/api-summary.json
         env:
           BASE_URL: ${{ vars.PERF_BASE_URL }}
-          API_P95_MS: "250"
-          API_P99_MS: "700"
+          API_P95_MS: '250'
+          API_P99_MS: '700'
 
   perf-db:
     if: ${{ vars.PERF_PROFILE == 'production' && vars.PERF_DATABASE_URL != '' }}
